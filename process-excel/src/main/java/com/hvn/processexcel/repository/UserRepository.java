@@ -9,4 +9,10 @@ import java.util.List;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Integer> {
+
+    @Query(value = "Select user_id, created_date, " +
+            "email, full_name, is_enabled, password, role_id FROM USERS u limit 1000000;",
+    nativeQuery = true)
+    List<User> findAllUsers4();
+
 }

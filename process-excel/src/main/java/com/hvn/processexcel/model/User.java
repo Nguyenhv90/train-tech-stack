@@ -6,7 +6,6 @@ import lombok.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import java.time.LocalDateTime;
-import java.util.Date;
 
 @Entity
 @Table(name = "users")
@@ -14,9 +13,11 @@ import java.util.Date;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class User {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue (strategy= GenerationType.SEQUENCE, generator="empSeqGen")
+    @SequenceGenerator(name = "empSeqGen", sequenceName = "EMP_SEQ_GEN")
     @Column(name = "user_id")
     private Integer userId;
     @Email
