@@ -5,6 +5,7 @@ import com.monitorjbl.xlsx.StreamingReader;
 import com.monitorjbl.xlsx.impl.StreamingWorkbookReader;
 import jakarta.servlet.ServletOutputStream;
 import jakarta.servlet.http.HttpServletResponse;
+import lombok.extern.log4j.Log4j;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.streaming.SXSSFSheet;
 import org.apache.poi.xssf.streaming.SXSSFWorkbook;
@@ -12,6 +13,8 @@ import org.apache.poi.xssf.usermodel.XSSFFont;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -23,6 +26,7 @@ import java.util.List;
 
 @Component
 public class ExportExcel {
+    Logger logger = LoggerFactory.getLogger(ExportExcel.class);
 
     // Use SXSSFWorkbook fast than XSSFWorkbook
     //https://levelup.gitconnected.com/how-to-write-a-million-rows-in-an-excel-file-efficiently-5f7ce6c69314
@@ -145,6 +149,7 @@ public class ExportExcel {
                 }
             }
         } catch (IOException e) {
+            logger.error("Error went import : " + e);
             throw new IOException("fail to read excel file : " + e.getMessage(), e);
         }
         return result;
